@@ -26,8 +26,14 @@ export default function Header() {
   const { menuMaster } = useGetMenuMaster();
   const drawerOpen = menuMaster.isDashboardDrawerOpened;
 
-  // header content
-  const headerContent = useMemo(() => <HeaderContent />, []);
+  // Example function to handle view change
+  const handleViewChange = (type) => {
+    console.log('View changed to:', type);
+    // Handle view change logic here
+  };
+
+  // header content with props
+  const headerContent = useMemo(() => <HeaderContent onViewChange={handleViewChange} />, [handleViewChange]);
 
   const iconBackColor = 'grey.100';
   const iconBackColorOpen = 'grey.200';

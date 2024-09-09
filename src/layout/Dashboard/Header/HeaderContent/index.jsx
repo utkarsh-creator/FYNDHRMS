@@ -1,42 +1,40 @@
-// material-ui
+import React, { useState } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
-
-// project import
-import Search from './Search';
+import Button from '@mui/material/Button';
 import Profile from './Profile';
-import Notification from './Notification';
 import MobileSection from './MobileSection';
 
-// project import
-import { GithubOutlined } from '@ant-design/icons';
-
-// ==============================|| HEADER - CONTENT ||============================== //
-
-export default function HeaderContent() {
+export default function HeaderContent({ onViewChange }) {
   const downLG = useMediaQuery((theme) => theme.breakpoints.down('lg'));
+  const [viewType, setViewType] = useState('internal'); // State for internal/external view
+
+  const handleViewChange = (type) => {
+    setViewType(type);
+    onViewChange(type); // Pass the selected type to the parent (LandingPage)
+  };
 
   return (
-    <>
-      {/* {!downLG && <Search />} */}
-      {/* {downLG && <Box sx={{ width: '100%', ml: 1 }} />} */}
-      {/* <IconButton
-        component={Link}
-        href="https://github.com/codedthemes/mantis-free-react-admin-template"
-        target="_blank"
-        disableRipple
-        color="secondary"
-        title="Download Free Version"
-        sx={{ color: 'text.primary', bgcolor: 'grey.100' }}
-      >
-        <GithubOutlined />
-      </IconButton>
-
-      <Notification /> */}
+    <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
       {!downLG && <Profile />}
       {downLG && <MobileSection />}
-    </>
+      {/* <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+        <Button
+          variant={viewType === 'internal' ? 'contained' : 'outlined'}
+          color="primary"
+          onClick={() => handleViewChange('internal')}
+        >
+          Internal
+        </Button>
+        <Button
+          variant={viewType === 'external' ? 'contained' : 'outlined'}
+          color="primary"
+          onClick={() => handleViewChange('external')}
+          sx={{ ml: 1 }}
+        >
+          External
+        </Button>
+      </Box> */}
+    </Box>
   );
 }
